@@ -1,8 +1,8 @@
 const Joi = require("joi");
 
 const userRegisterValidator = Joi.object({
-  userId: Joi.string().required().messages({
-    "any.only": "User Id is required",
+  authId: Joi.string().required().messages({
+    "any.only": "Auth Id is required",
   }),
   phone: Joi.string().required().messages({
     "any.only": "Phone is required",

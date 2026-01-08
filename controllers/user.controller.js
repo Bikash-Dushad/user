@@ -1,12 +1,15 @@
-const { userRegisterService } = require("../services/user.service");
+const {
+  userRegisterService,
+  getUserByAuthIdService,
+} = require("../services/user.service");
 const { handleError } = require("../utils/error.handler");
 
 const userRegister = async (req, res) => {
   try {
-    const userId = req.user.id;
+    const authId = req.user.id;
     const phone = req.user.phone;
     const payload = req.body;
-    payload.userId = userId;
+    payload.authId = authId;
     payload.phone = phone;
     const data = await userRegisterService(payload);
     return res.status(200).json({
@@ -19,6 +22,37 @@ const userRegister = async (req, res) => {
   }
 };
 
+const getUserByAuthId = async (req, res) => {
+  try {
+    const payload = req.body;
+    const data = await getUserByAuthIdService(payload);
+    return res.status(200).json({
+      responseCode: 200,
+      message: "user Profile fetched successfully",
+      data,
+    });
+  } catch (error) {
+    return handleError(res, error, "getUserByUserId");
+  }
+};
+
+const getMyProfile = async (req, res) => {
+  try {
+    const authId = req.user.id;
+    let payload = authId;
+    const data = await getUserByAuthIdService(payload);
+    return res.status(200).json({
+      responseCode: 200,
+      message: "Profile fetched successfully",
+      data,
+    });
+  } catch (error) {
+    return handleError(res, error, "getMyProfile");
+  }
+};
+
 module.exports = {
   userRegister,
+  getUserByAuthId,
+  getMyProfile,
 };
