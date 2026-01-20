@@ -1,5 +1,0 @@
-2026-01-08T08:18:05.217Z [error]: [userRegister] Validation error on 'authId': Path `authId` is required.
-2026-01-08T08:19:30.287Z [error]: [userRegister] Unexpected error: "authId" is required
-2026-01-08T08:20:04.452Z [error]: [userRegister] Unexpected error: userId is not defined
-2026-01-08T08:27:39.483Z [error]: [getUserByUserId] Unexpected error: Parameter "filter" to findOne() must be an object, got "695e935bc6c64d3fc0727603" (type string)
-2026-01-08T08:31:35.289Z [error]: [getUserByUserId] Unexpected error: Cannot populate path `695e935bc6c64d3fc0727603` because it is not in your schema. Set the `strictPopulate` option to false to override.

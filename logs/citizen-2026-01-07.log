@@ -1,2 +1,0 @@
-2026-01-07T18:25:30.333Z [error]: [userRegister] Unexpected error: "phone" is required
-2026-01-07T18:27:20.431Z [error]: [userRegister] Unexpected error: gender must be male, female or other
