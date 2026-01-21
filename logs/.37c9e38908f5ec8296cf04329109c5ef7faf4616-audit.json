@@ -24,6 +24,11 @@
             "date": 1768892445697,
             "name": "logs\\citizen-2026-01-20.log",
             "hash": "40092b4b22b1762d684e3558d3f7263f7ad1151c93fcfb1a4cabcbfbb7d277e0"
+        },
+        {
+            "date": 1768977229320,
+            "name": "logs\\citizen-2026-01-21.log",
+            "hash": "9a64b300c4c3cff89e8161f8f4529749defc58b2ea09437839c1165a98a25def"
         }
     ],
     "hashType": "sha256"
