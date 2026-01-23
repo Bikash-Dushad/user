@@ -8,7 +8,6 @@ const connectDB = require("./config/db");
 const redis = require("./config/redis");
 const socketInit = require("./sockets");
 const routes = require("./routers");
-const updateCaptainLocation = require("./kafka/consumer");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -35,7 +34,6 @@ connectDB()
     server.listen(process.env.PORT, () => {
       console.log(`Server running on http://localhost:${process.env.PORT}`);
     });
-    updateCaptainLocation(io);
   })
   .catch((err) => {
     console.error("Failed to connect to MongoDB", err);
