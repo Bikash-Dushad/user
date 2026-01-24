@@ -33,6 +33,8 @@ const userRegisterService = async (payload) => {
 
 const getUserByAuthIdService = async (payload) => {
   const { authId } = payload;
+  console.log("payloadd is: ", payload)
+  console.log("authId is ", authId)
   if (!authId) {
     throw new Error("authId is required");
   }

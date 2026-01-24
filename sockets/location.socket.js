@@ -1,8 +1,36 @@
 const redis = require("../config/redis");
+const { getUserByAuthIdService } = require("../services/user.service");
+const { producer } = require("../kafka/producer");
 
 module.exports = (io) => {
-  io.on("connection", (socket) => {
-    console.log("User connected:", socket.id);
+  io.on("connection", async (socket) => {
+    console.log("User connected");
+
+    let userDetails = null;
+    if (socket.user.id) {
+      const authId = socket.user.id;
+      console.log("authId from socket.user:", authId);
+      const user = await getUserByAuthIdService({ authId });
+      if (!user) {
+        return;
+      }
+      userDetails = {
+        authId: user.authId,
+        userId: user._id,
+        userName: user.name,
+        userRating: user.rating,
+      };
+    }
+    await producer.send({
+      topic: "USER_DETAILS",
+      messages: [
+        {
+          key: userDetails.authId,
+          value: JSON.stringify(userDetails),
+        },
+      ],
+    });
+    console.log("✅ User connection event sent to Kafka:", userDetails);
 
     //sends the captains location to user
     socket.on("USER_LOCATION", async ({ lat, lng }) => {
@@ -31,7 +59,7 @@ module.exports = (io) => {
     });
 
     socket.on("disconnect", async () => {
-      console.log("Captain offline");
+      console.log("user offline");
     });
   });
 };

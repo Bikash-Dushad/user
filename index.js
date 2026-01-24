@@ -3,6 +3,7 @@ const http = require("http");
 const { Server } = require("socket.io");
 const port = 3001;
 const cors = require("cors");
+const { connectProducer } = require("./kafka/producer");
 
 const connectDB = require("./config/db");
 const redis = require("./config/redis");
@@ -34,6 +35,7 @@ connectDB()
     server.listen(process.env.PORT, () => {
       console.log(`Server running on http://localhost:${process.env.PORT}`);
     });
+    connectProducer();
   })
   .catch((err) => {
     console.error("Failed to connect to MongoDB", err);
