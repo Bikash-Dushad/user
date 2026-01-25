@@ -9,6 +9,7 @@ const userRegisterService = async (payload) => {
   if (error) {
     throw new Error(error.details[0].message);
   }
+  let eventType;
   const user = await UserModel.findOne({ phone });
   if (user) {
     user.authId = authId;
@@ -16,7 +17,9 @@ const userRegisterService = async (payload) => {
     user.gender = gender;
     user.avatar = avatar;
     user.isRegistered = true;
+    user.version = (user.version || 0) + 1;
     await user.save();
+    eventType = "USER_UPDATED"
     return user;
   }
   const newUser = new UserModel({
@@ -26,19 +29,21 @@ const userRegisterService = async (payload) => {
     name,
     gender,
     avatar,
+    version: 0
   });
+  eventType = "USER_CREATED"
   await newUser.save();
   return newUser;
 };
 
 const getUserByAuthIdService = async (payload) => {
   const { authId } = payload;
-  console.log("payloadd is: ", payload)
-  console.log("authId is ", authId)
+  console.log("payloadd is: ", payload);
+  console.log("authId is ", authId);
   if (!authId) {
     throw new Error("authId is required");
   }
-  const findUser = await UserModel.findOne({authId});
+  const findUser = await UserModel.findOne({ authId });
   if (!findUser) {
     throw new Error("User not found");
   }

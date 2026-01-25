@@ -32,6 +32,15 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    version: {
+      type: Number,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["active", "blocked", "deleted"],
+      default: "active",
+    },
     isActive: {
       type: Boolean,
       default: true,
@@ -41,7 +50,7 @@ const userSchema = new mongoose.Schema(
       default: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 module.exports = mongoose.model("User", userSchema);
