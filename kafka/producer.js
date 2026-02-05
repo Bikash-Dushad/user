@@ -7,7 +7,19 @@ const connectProducer = async () => {
   console.log("Kafka Producer Connected (user Service)");
 };
 
+const sendEvent = async ({ topic, message }) => {
+  await producer.send({
+    topic,
+    messages: [
+      {
+        value: JSON.stringify(message),
+      },
+    ],
+  });
+};
+
 module.exports = {
   producer,
   connectProducer,
+  sendEvent,
 };

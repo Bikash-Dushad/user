@@ -1,5 +1,4 @@
 module.exports = {
-  CAPTAIN_REGISTERED: "captain.registered",
+  AUTHUSER_REGISTERED: "authuser.registered",
   CAPTAIN_LOC_UPDATED: "captain.loc_updated",
-  USER_CRREATED: "user.created",
 };

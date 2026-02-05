@@ -14,8 +14,8 @@ const userRegister = async (req, res) => {
     const data = await userRegisterService(payload);
     return res.status(200).json({
       responseCode: 200,
-      message: "User registered successfully",
-      data,
+      message: `user ${data.isUpdated ? " updated " : " created "} successfully`,
+      data: data.user,
     });
   } catch (error) {
     return handleError(res, error, "userRegister");
